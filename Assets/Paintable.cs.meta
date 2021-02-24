@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 9ebb8b780bebc334299fb2ec91329c3b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_BrushRed: {fileID: 3024708781189126608, guid: bd60f8559d6699c4f9ccf4cb7c674a2e,
+      type: 3}
+  - m_BrushBlue: {fileID: 3024708781189126608, guid: b824977efdd8d5d4e904b8af5a028e07,
+      type: 3}
+  - m_RenderTexture: {instanceID: 0}
+  - cam: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

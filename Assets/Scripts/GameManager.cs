@@ -33,10 +33,6 @@ namespace PPGameManager
                 return;
             }
 
-            // Temporary
-            m_clicPoint = Input.mousePosition;
-
-
             if (Input.GetMouseButton(0))
             {
                 SpawnPaintBrush(m_clicPoint, m_BrushRed);

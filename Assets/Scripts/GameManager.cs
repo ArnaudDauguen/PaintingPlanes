@@ -1,17 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using PPPaintable;
 
 namespace PPGameManager
 {
 	public class GameManager : MonoBehaviour
     {
+        // Game
         public GameObject m_BrushRed;
         public GameObject m_BrushBlue;
         public float m_BrushSize = 0.1f;
         public float m_fireRate = 4.0f;
         public int m_quantityOfBrushToRenderTextures = 20;
+
+        // UI
+        public TextMeshProUGUI m_percentageTextBox;
 
         private List<GameObject> m_paintableObjects = new List<GameObject>();
         private List<GameObject> m_brushes = new List<GameObject>();
@@ -53,6 +58,8 @@ namespace PPGameManager
             //clear
             m_brushes.ForEach(kill);
             m_brushes.Clear();
+
+            CalculateColorPercentages();
         }
 
         void SpawnPaintBrush(Vector3 clicPoint, GameObject brush)
@@ -78,6 +85,22 @@ namespace PPGameManager
                     DrawNewTextures();
                 }
             }
+        }
+
+        public void CalculateColorPercentages()
+        {
+            int redPixelCount = 0, bluePixelCount = 0, totalPixelCount = 0;
+
+            foreach (Paintable go in Object.FindObjectsOfType<Paintable>())
+            {
+                redPixelCount += go.redPixelCount();
+                bluePixelCount += go.bluePixelCount();
+                totalPixelCount += go.totalPixelCount();
+            }
+
+            int redPercentage = Mathf.FloorToInt(100 * ((float)redPixelCount / totalPixelCount));
+            int bluePercentage = Mathf.FloorToInt(100 * ((float)bluePixelCount / totalPixelCount));
+            m_percentageTextBox.text = $"{redPercentage}% vs {bluePercentage}%";
         }
 
 

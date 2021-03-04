@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace PPFlyable
@@ -14,6 +15,8 @@ namespace PPFlyable
 		public float m_pitchSpeed = 90.0f;
 		[Tooltip("°/s vertical left/right")]
 		public float m_rollSpeed = 90.0f;
+		public TextMeshProUGUI m_TMP_speed;
+		public TextMeshProUGUI m_TMP_heigh;
 
 	    // Start is called before the first frame update
 	    void Start()
@@ -37,6 +40,10 @@ namespace PPFlyable
 
 			// Move
 			this.gameObject.transform.Translate(new Vector3(0, 0, m_currentSpeed * deltatime));
-    	}
+
+			// Update HUD
+			this.m_TMP_speed.text = $"{this.m_currentSpeed}";
+			this.m_TMP_heigh.text = $"{this.gameObject.transform.position.y}";
+		}
 	}
 }

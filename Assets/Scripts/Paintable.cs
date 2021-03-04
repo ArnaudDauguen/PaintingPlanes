@@ -14,6 +14,13 @@ namespace PPPaintable
         private Texture2D m_texture2D;
         private Material m_material;
 
+        private int m_bluePixelCount = 0;
+        private int m_redPixelCount = 0;
+        private int m_totalPixelCount = 1;
+        public int bluePixelCount() { return m_bluePixelCount; }
+        public int redPixelCount() { return m_redPixelCount; }
+        public int totalPixelCount() { return m_totalPixelCount; }
+
         // Use this for initialization
         void Start()
         {
@@ -22,6 +29,7 @@ namespace PPPaintable
             m_RenderTexture.antiAliasing = 1;
 
             m_cam.targetTexture = m_RenderTexture;
+            m_totalPixelCount = m_RenderTexture.width * m_RenderTexture.height;
         }
 
         // Update is called once per frame
@@ -39,7 +47,6 @@ namespace PPPaintable
             m_cam.Render();
             RenderTexture.active = m_RenderTexture;
 
-
             //pickup datas and create new texture
             m_texture2D.ReadPixels(new Rect(0, 0, m_RenderTexture.width, m_RenderTexture.height), 0, 0);
             m_texture2D.Apply();
@@ -49,6 +56,15 @@ namespace PPPaintable
 
             //apply material
             GetComponent<Renderer>().material = m_material;
+
+            //calculate color percentage
+            m_redPixelCount = 0;
+            m_bluePixelCount = 0;
+            foreach (Color pixelColor in m_texture2D.GetPixels())
+            {
+                if (pixelColor.r > 0.5f && pixelColor.b < 0.5f) m_redPixelCount++;
+                else if (pixelColor.b > 0.5f && pixelColor.r < 0.5f) m_bluePixelCount++;
+            }
         }
     }
 }

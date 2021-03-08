@@ -40,11 +40,6 @@ namespace PPPaintable
 
         public void DrawNewTextures()
         {
-            StartCoroutine(CR_DrawNewTextures());
-        }
-
-        IEnumerator CR_DrawNewTextures()
-        {
             //convert rendering texture to texture2D
             m_texture2D = new Texture2D(m_RenderTexture.width, m_RenderTexture.height, TextureFormat.ARGB32, false);
 
@@ -70,7 +65,6 @@ namespace PPPaintable
                 if (pixelColor.r > 0.5f && pixelColor.b < 0.5f) m_redPixelCount++;
                 else if (pixelColor.b > 0.5f && pixelColor.r < 0.5f) m_bluePixelCount++;
             }
-            yield return "";
         }
     }
 }

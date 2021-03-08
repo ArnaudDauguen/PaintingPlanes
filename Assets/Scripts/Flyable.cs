@@ -8,7 +8,8 @@ namespace PPFlyable
 	public class Flyable : MonoBehaviour
 	{
 		[Tooltip("m/s")]
-		public float m_currentSpeed = 150.0f;
+		public float m_baseSpeed = 150.0f;
+		private float m_currentSpeed;
 		[Tooltip("m/s")]
 		public float m_maxSpeed = 700.0f;
 		[Tooltip("°/s, up/down")]
@@ -18,6 +19,8 @@ namespace PPFlyable
 		public TextMeshProUGUI m_TMP_speed;
 		public TextMeshProUGUI m_TMP_heigh;
 		public TextMeshProUGUI m_TMP_enginePower;
+
+		private bool m_enabledFlyght = true;
 
 		private float m_currentEnginePowerPercentage = 1.0f;
 
@@ -35,12 +38,15 @@ namespace PPFlyable
 	    // Start is called before the first frame update
 	    void Start()
 	    {
-			
+			m_currentSpeed = m_baseSpeed;
 	    }
 	
 	    // Update is called once per frame
 	    void Update()
 	    {
+            if (!m_enabledFlyght) { return; }
+
+
 			float deltatime = Time.deltaTime;
 
 			// Rotations
@@ -81,7 +87,8 @@ namespace PPFlyable
 
 
 			// Move
-			gameObject.transform.Translate(new Vector3(0, 0, m_currentSpeed * deltatime));
+			//TODO convert speed to world relative + rotation instead of plane relative
+			gameObject.transform.Translate(new Vector3(0, 0, m_currentSpeed * deltatime)); 
 
 
 			// Update HUD
@@ -89,5 +96,8 @@ namespace PPFlyable
 			m_TMP_heigh.text = $"{Mathf.RoundToInt(gameObject.transform.position.y)}";
 			m_TMP_enginePower.text = $"{Mathf.RoundToInt(100 * m_currentEnginePowerPercentage)}";
 		}
+
+		public void setFlyghtStatus(bool isEnabled){ m_enabledFlyght = isEnabled; }
+		public void resetSpeed() { m_currentSpeed = m_baseSpeed; }
 	}
 }

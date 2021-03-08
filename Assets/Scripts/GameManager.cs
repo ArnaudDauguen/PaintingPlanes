@@ -50,6 +50,12 @@ namespace PPGameManager
 
         public void DrawNewTextures()
         {
+            StartCoroutine(CR_DrawNewTextures());
+        }
+
+        IEnumerator CR_DrawNewTextures()
+        {
+            yield return "";
             foreach (Paintable go in Object.FindObjectsOfType<Paintable>())
             {
                 go.DrawNewTextures();

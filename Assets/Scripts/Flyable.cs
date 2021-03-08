@@ -64,7 +64,7 @@ namespace PPFlyable
 				? -2 * angle * m_fakeGravityFactor
 				: (-angle) * m_fakeGravityFactor; 
 			acceleration *= deltatime;
-			m_currentSpeed += acceleration;
+			m_currentSpeed = Mathf.Clamp(m_currentSpeed + acceleration, 0.0f, m_maxSpeed);
 
 
 			//Other forces
